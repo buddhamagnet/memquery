@@ -84,4 +84,6 @@ class Memquery
   end
 end
 
-puts Memquery.new.run
+if ARGV.size > 0
+  puts Memquery.new.run
+end
