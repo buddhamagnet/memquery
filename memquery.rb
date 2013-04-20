@@ -6,12 +6,16 @@ class Memquery
   attr_reader :cache_dump_limit, :localhost
   attr_accessor :slab_ids, :port, :regex, :host
 
+  def self.version 
+    '1.0.0'
+  end
+
   def initialize
     select_bin
     set_host
     set_pattern
     @cache_dump_limit = 100
-    @localhost = Net::Telnet::new("Host" => host, "Port" => port, "Timeout" => 3)
+    set_localhost
     @slab_ids = []
   end
 
@@ -35,6 +39,10 @@ class Memquery
   def set_pattern
     pattern = ARGV[2] || '.+'
     self.regex = Regexp.new(pattern)
+  end
+
+  def set_localhost
+    self.localhost = Net::Telnet::new('Host' => host, 'Port' => port, 'Timeout' => 3)
   end
 
   def get_slabs
