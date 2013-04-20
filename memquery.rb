@@ -3,6 +3,9 @@ require 'net/telnet'
 
 class Memquery
 
+  MEMQUERY_PORT_STANDARD = 11211
+  MEMQUERY_PORT_DURABLE = 11226
+
   attr_reader :cache_dump_limit, :localhost
   attr_accessor :slab_ids, :port, :regex, :host
 
@@ -21,8 +24,8 @@ class Memquery
 
   def select_bin
     self.port = case ARGV[0]
-      when 'd' then 11226
-      when 'n' then 11211
+      when 'd' then MEMQUERY_PORT_DURABLE
+      when 'n' then MEMQUERY_PORT_STANDARD
       else
         puts "Please specify a bin - n (normal) or d (durable)"
         exit
