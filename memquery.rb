@@ -73,6 +73,22 @@ class Memquery
     terminate
   end
 
+  def command(command)
+    machine.cmd("String" => command, "Match" => /^END/)
+  end
+
+  def flush_all(seconds = '')
+    command("flush_all #{seconds}")
+  end
+
+  def version
+    command("version")
+  end
+
+  def stats
+    command("stats")
+  end
+
   def run
     get_slabs
     output_slabs
